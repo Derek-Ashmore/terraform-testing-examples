@@ -1,0 +1,75 @@
+
+provider "azurerm" {
+  features {}
+} 
+/*
+  No other way to specify specific provider versions other than 
+    to hardcode them into the module being tested.
+  It *does* take the subscription and tenant from the Azure login context.
+    We don't need to hardcode specific values for those.
+*/
+
+variables {
+    resource_group_name     = "flintstone-vnet-rg"
+    location                = "centralus"
+
+    tags = {
+        first = "fred"
+        second = "flintstone"
+    }
+}
+
+run "setup" {
+    module {
+      source = "../../test-setup/resource_group"
+
+    }
+    /* 
+      Variable inputs to modules modules used in the test setup aren't allowed.
+        This makes it difficult to genericize common test setup code.
+    */
+}
+
+run "all_default_options" {
+    command = apply
+
+    variables {
+      vnet_name = "Test-VNet"
+      vnet_cidr_list = ["10.1.0.0/16"]
+      subnet_config = {
+        subnet1 = {
+          address_prefixes = ["10.1.1.0/24"]
+        }
+      }
+    }
+
+    // It's nice that error message support variables so that they can be more meaningful.
+    assert {
+      condition = azurerm_virtual_network.vnet.name == var.vnet_name
+      error_message = "VNet name is not correct.  name=${azurerm_virtual_network.vnet.name}"
+    }
+
+    /* 
+        Multi-line conditions are *not* supported.
+        Complex variables in the error message have issues. 
+          Putting the literal 'cidr=${join(",", azurerm_virtual_network.vnet.address_space}' in the error message did not work.
+    */
+    assert {
+      condition = contains(azurerm_virtual_network.vnet.address_space, var.vnet_cidr_list[0]) && length(azurerm_virtual_network.vnet.address_space) == 1
+      error_message = "VNet CIDR allocation is not correct."
+    }
+    assert {
+      condition = contains(azurerm_subnet.subnet["subnet1"].address_prefixes, var.subnet_config["subnet1"].address_prefixes[0]) && length(azurerm_subnet.subnet["subnet1"].address_prefixes) == 1
+      error_message = "Subnet CIDR is not correct."
+    }
+
+    assert {
+      condition = length(azurerm_virtual_network.vnet.tags) == 2
+      error_message = "VNet tags are not correct."
+    }
+    assert {
+      condition = azurerm_virtual_network.vnet.tags["first"] == var.tags["first"] && azurerm_virtual_network.vnet.tags["second"] == var.tags["second"]
+      error_message = "VNet tags are not correct."
+    }
+
+}
