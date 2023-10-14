@@ -29,7 +29,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_location"></a> [location](#input\_location) | Azure region to deploy the virtual network | `string` | n/a | yes |
 | <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | Name of the resource group to deploy the virtual network | `string` | n/a | yes |
-| <a name="input_subnet_config"></a> [subnet\_config](#input\_subnet\_config) | Subnet specification for the virtual network | <pre>map(object({<br>        address_prefixes                                = list(string)<br>        private_endpoint_network_policies_enabled       = optional(bool, null)<br>    }))</pre> | n/a | yes |
+| <a name="input_subnet_config"></a> [subnet\_config](#input\_subnet\_config) | Subnet specification for the virtual network | <pre>map(object({<br>        address_prefixes                                = list(string)<br>        private_endpoint_network_policies_enabled       = optional(bool, null)<br>        delegations                                     = optional(map(object({<br>            name = string<br>            actions = optional(list(string))<br>        })), {})<br>        service_endpoints                               = optional(list(string), null)<br>    }))</pre> | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | Tags to apply to the virtual network | `map(string)` | `{}` | no |
 | <a name="input_vnet_cidr_list"></a> [vnet\_cidr\_list](#input\_vnet\_cidr\_list) | List of CIDR blocks to use for the virtual network | `list(string)` | n/a | yes |
 | <a name="input_vnet_name"></a> [vnet\_name](#input\_vnet\_name) | Name of the virtual network | `string` | n/a | yes |

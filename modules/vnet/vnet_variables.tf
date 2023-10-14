@@ -23,6 +23,11 @@ variable subnet_config {
     type        = map(object({
         address_prefixes                                = list(string)
         private_endpoint_network_policies_enabled       = optional(bool, null)
+        delegations                                     = optional(map(object({
+            name = string
+            actions = optional(list(string))
+        })), {})
+        service_endpoints                               = optional(list(string), null)
     }))
 }
 
