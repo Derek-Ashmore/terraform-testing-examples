@@ -88,3 +88,27 @@ run "test_private_endpoint_network_policies_enabled" {
       error_message = "Subnet private_endpoint_network_policies_enabled is not correct."
     }
 }
+
+run "test_service_endpoints" {
+    variables {
+      subnet_config = {
+        subnet1 = {
+          address_prefixes = ["10.1.1.0/24"]
+          service_endpoints = ["Microsoft.Storage", "Microsoft.KeyVault"]
+        }
+      }
+    }
+
+    assert {
+      condition = length(azurerm_subnet.subnet["subnet1"].service_endpoints) == 2
+      error_message = "Subnet service_endpoints are not correct. Wrong number of endpoints." 
+    }
+    assert {
+      condition = contains(azurerm_subnet.subnet["subnet1"].service_endpoints, var.subnet_config["subnet1"].service_endpoints[0])
+      error_message = "Subnet service_endpoint 1 missing." 
+    }
+    assert {
+      condition = contains(azurerm_subnet.subnet["subnet1"].service_endpoints, var.subnet_config["subnet1"].service_endpoints[1])
+      error_message = "Subnet service_endpoint 1 missing." 
+    }
+}
