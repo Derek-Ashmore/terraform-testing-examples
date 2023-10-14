@@ -1,7 +1,7 @@
 # terraform-testing-examples
 Examples for Terraform Testing Framework.
 
-Example modules (with tests) are procided in the ```modules``` folder.
+Example modules (with tests) are provided in the ```modules``` folder.
 
 Notes on executing tests are [here](./modules/Test-Execution.md)
 
@@ -23,6 +23,6 @@ Notes on executing tests are [here](./modules/Test-Execution.md)
 
 ## Resources
 
-Chief resoruces used for this development are:
+Chief resources used for this development are:
 * [Terraform test code documentation](https://developer.hashicorp.com/terraform/language/tests)
 * [Terraform test command options](https://developer.hashicorp.com/terraform/cli/commands/test)
