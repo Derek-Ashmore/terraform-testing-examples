@@ -136,7 +136,7 @@ run "test_delegations" {
       error_message = "Subnet delegation aseDelegation is missing." 
     }
     assert {
-      condition = azurerm_subnet.subnet["subnet1"].delegation[0].service_delegation.name == "Microsoft.Web/serverFarms"
+      condition = azurerm_subnet.subnet["subnet1"].delegation[0].service_delegation[0].name == "Microsoft.Web/serverFarms"
       error_message = "Subnet delegation Microsoft.Web/serverFarms is missing." 
     }
 
