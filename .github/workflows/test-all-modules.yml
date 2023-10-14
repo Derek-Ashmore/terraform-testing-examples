@@ -1,0 +1,30 @@
+name: test-all-modules
+
+on:
+  pull_request:
+    branches:
+    - main
+
+jobs:
+  test-modules:
+    name: "Module Test Suite"
+    runs-on: ubuntu-latest
+    env:
+      TERRAFORM_VERSION: 1.6.1
+      MODULE_DIR: modules
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+    - name: Install Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: ${{env.TERRAFORM_VERSION}}
+    - name: Test Vnet
+      run: |
+        az login --service-principal -u ${{ secrets.AZURE_CLIENT_ID }} -p ${{ secrets.AZURE_CLIENT_SECRET }} --tenant ${{ secrets.AZURE_TENANT_ID }}
+        cd ${{env.MODULE_DIR}}/vnet
+        terraform init
+        terraform test
+
+
+
