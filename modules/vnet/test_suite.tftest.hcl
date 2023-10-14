@@ -13,6 +13,9 @@ variables {
     resource_group_name     = "flintstone-vnet-rg"
     location                = "centralus"
 
+    vnet_name               = "Test-VNet"
+    vnet_cidr_list          = ["10.1.0.0/16"]
+
     tags = {
         first = "fred"
         second = "flintstone"
@@ -31,11 +34,7 @@ run "setup" {
 }
 
 run "all_default_options" {
-    command = apply
-
     variables {
-      vnet_name = "Test-VNet"
-      vnet_cidr_list = ["10.1.0.0/16"]
       subnet_config = {
         subnet1 = {
           address_prefixes = ["10.1.1.0/24"]
@@ -72,4 +71,20 @@ run "all_default_options" {
       error_message = "VNet tags are not correct."
     }
 
+}
+
+run "test_private_endpoint_network_policies_enabled" {
+    variables {
+      subnet_config = {
+        subnet1 = {
+          address_prefixes = ["10.1.1.0/24"]
+          private_endpoint_network_policies_enabled = false
+        }
+      }
+    }
+
+    assert {
+      condition = !azurerm_subnet.subnet["subnet1"].private_endpoint_network_policies_enabled
+      error_message = "Subnet private_endpoint_network_policies_enabled is not correct."
+    }
 }
