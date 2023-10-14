@@ -1,5 +1,5 @@
 # terraform-testing-examples
-Examples for Terraform Testing Framework.
+Examples for the Terraform Testing Framework released on October 4, 2023 with version 1.6.0.
 
 Example modules (with tests) are provided in the ```modules``` folder.
 
