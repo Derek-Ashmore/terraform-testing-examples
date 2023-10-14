@@ -1,6 +1,7 @@
 name: test-all-modules
 
 on:
+  workflow_dispatch:
   pull_request:
     branches:
     - main
