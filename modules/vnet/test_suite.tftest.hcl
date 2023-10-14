@@ -28,7 +28,7 @@ run "setup" {
 
     }
     /* 
-      Variable inputs to modules modules used in the test setup aren't allowed.
+      Variable inputs to modules used in the test setup aren't allowed.
         This makes it difficult to genericize common test setup code.
     */
 }
@@ -111,4 +111,33 @@ run "test_service_endpoints" {
       condition = contains(azurerm_subnet.subnet["subnet1"].service_endpoints, var.subnet_config["subnet1"].service_endpoints[1])
       error_message = "Subnet service_endpoint 1 missing." 
     }
+}
+
+run "test_delegations" {
+    variables {
+      subnet_config = {
+        subnet1 = {
+          address_prefixes = ["10.1.1.0/24"]
+          delegations = {
+             aseDelegation = {
+               name = "Microsoft.Web/serverFarms"
+             }
+          }
+        }
+      }
+    }
+
+    assert {
+      condition = length(azurerm_subnet.subnet["subnet1"].delegation) == 1
+      error_message = "Subnet delegation is missing." 
+    }
+    assert {
+      condition = azurerm_subnet.subnet["subnet1"].delegation[0].name == "aseDelegation"
+      error_message = "Subnet delegation aseDelegation is missing." 
+    }
+    assert {
+      condition = azurerm_subnet.subnet["subnet1"].delegation[0].service_delegation.name == "Microsoft.Web/serverFarms"
+      error_message = "Subnet delegation Microsoft.Web/serverFarms is missing." 
+    }
+
 }

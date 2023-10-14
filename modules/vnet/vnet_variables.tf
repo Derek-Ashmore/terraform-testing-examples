@@ -25,7 +25,7 @@ variable subnet_config {
         private_endpoint_network_policies_enabled       = optional(bool, null)
         delegations                                     = optional(map(object({
             name = string
-            actions = list(string)
+            actions = optional(list(string))
         })), {})
         service_endpoints                               = optional(list(string), null)
     }))
