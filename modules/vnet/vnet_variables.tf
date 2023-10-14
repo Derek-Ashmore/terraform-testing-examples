@@ -22,7 +22,7 @@ variable subnet_config {
     description = "Subnet specification for the virtual network"
     type        = map(object({
         address_prefixes                                = list(string)
-        enforce_private_link_endpoint_network_policies  = optional(bool, null)
+        private_endpoint_network_policies_enabled       = optional(bool, null)
     }))
 }
 
