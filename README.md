@@ -8,11 +8,11 @@ Notes on executing tests are [here](./modules/Test-Execution.md)
 ## Observations
 * Test run time for even bassic tests is long. You want to invest in running tests automatically via CI/CD pipeline so that a human doesn't have to wait.
 * Error message text in assertions only support very basic variables. Makes figuring out why a test failed difficult sometimes.
-* I haven't found a good way to test module output values
 * Interrogating complex attributes (e.g. Azure subnet delegations) are not easy or obvious.
 * Multi-line conditions in test assertions are *not* supported. Conditions must be one and only one line.
 * Variable inputs to modules used in the test setup are allowed, but do not follow the syntax you're used to. Variables are specified in "variable" blocks, not as arguments to the module call.
 * Github workflows to automatically run tests were very easy to set up. See [our local workflow](.github/workflows/test-all-modules.yml)
+* It would be nice if invalid resource references in test files errored out at the beginning. That would save time.
 * True test-driven development (TDD) has finally arrived. It's wonderful!
 
 
