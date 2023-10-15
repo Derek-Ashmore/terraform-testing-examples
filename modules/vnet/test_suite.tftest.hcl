@@ -28,8 +28,8 @@ run "setup" {
 
     }
     /* 
-      Variable inputs to modules used in the test setup aren't allowed.
-        This makes it difficult to genericize common test setup code.
+      Variable inputs to modules use the variables block above for inputs.
+        Not intuitive given normal module syntax, but it works.
     */
 }
 
@@ -89,6 +89,26 @@ run "test_private_endpoint_network_policies_enabled" {
     }
 }
 
+run "test_private_link_service_network_policies_enabled" {
+    variables {
+      subnet_config = {
+        subnet1 = {
+          address_prefixes = ["10.1.1.0/24"]
+          private_link_service_network_policies_enabled = false
+        }
+      }
+    }
+
+    assert {
+      condition = !azurerm_subnet.subnet["subnet1"].private_link_service_network_policies_enabled
+      error_message = "Subnet private_endpoint_network_policies_enabled is not correct."
+    }
+    assert {
+      condition = azurerm_subnet.subnet["subnet1"].private_endpoint_network_policies_enabled
+      error_message = "Subnet private_endpoint_network_policies_enabled shoudl be true by default."
+    }
+}
+
 run "test_service_endpoints" {
     variables {
       subnet_config = {
@@ -110,6 +130,10 @@ run "test_service_endpoints" {
     assert {
       condition = contains(azurerm_subnet.subnet["subnet1"].service_endpoints, var.subnet_config["subnet1"].service_endpoints[1])
       error_message = "Subnet service_endpoint 1 missing." 
+    }
+    assert {
+      condition = azurerm_subnet.subnet["subnet1"].private_endpoint_network_policies_enabled
+      error_message = "Subnet private_endpoint_network_policies_enabled shoudl be true by default."
     }
 }
 
@@ -138,6 +162,10 @@ run "test_delegations" {
     assert {
       condition = azurerm_subnet.subnet["subnet1"].delegation[0].service_delegation[0].name == "Microsoft.Web/serverFarms"
       error_message = "Subnet delegation Microsoft.Web/serverFarms is missing." 
+    }
+    assert {
+      condition = azurerm_subnet.subnet["subnet1"].private_endpoint_network_policies_enabled
+      error_message = "Subnet private_endpoint_network_policies_enabled shoudl be true by default."
     }
 
 }
