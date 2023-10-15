@@ -22,7 +22,8 @@ variable subnet_config {
     description = "Subnet specification for the virtual network"
     type        = map(object({
         address_prefixes                                = list(string)
-        private_endpoint_network_policies_enabled       = optional(bool, null)
+        private_endpoint_network_policies_enabled       = optional(bool, true)
+        private_link_service_network_policies_enabled   = optional(bool, true)
         delegations                                     = optional(map(object({
             name = string
             actions = optional(list(string))

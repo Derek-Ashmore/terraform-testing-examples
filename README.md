@@ -11,8 +11,9 @@ Notes on executing tests are [here](./modules/Test-Execution.md)
 * I haven't found a good way to test module output values
 * Interrogating complex attributes (e.g. Azure subnet delegations) are not easy or obvious.
 * Multi-line conditions in test assertions are *not* supported. Conditions must be one and only one line.
-* Variable inputs to modules used in the test setup aren't allowed. This makes it difficult to genericize common test setup code.
+* Variable inputs to modules used in the test setup are allowed, but do not follow the syntax you're used to. Variables are specified in "variable" blocks, not as arguments to the module call.
 * Github workflows to automatically run tests were very easy to set up. See [our local workflow](.github/workflows/test-all-modules.yml)
+* True test-driven development (TDD) has finally arrived. It's wonderful!
 
 
 ## Module Inventory
