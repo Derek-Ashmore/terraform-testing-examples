@@ -30,14 +30,18 @@ run "setup_rg" {
     module {
       source = "../../test-setup/resource_group"
     }
-    
 }
 
 run "setup_route_table" {
     module {
       source = "../../test-setup/route_table"
     }
-    
+}
+
+run "setup_security_group" {
+    module {
+      source = "../../test-setup/security_group"
+    }
 }
 
 run "all_default_options" {
@@ -205,5 +209,21 @@ run "test_route_table" {
     assert {
       condition = azurerm_subnet_route_table_association.subnet_route_table["subnet1"].route_table_id == run.setup_route_table.azurerm_route_table.id
       error_message = "Subnet not associated with a route table as expected."
+    }
+}
+
+run "test_security_group" {
+    variables {
+      subnet_config = {
+        subnet1 = {
+          address_prefixes = ["10.1.1.0/24"]
+          security_group_id = run.setup_security_group.azurerm_network_security_group.id
+        }
+      }
+    }
+
+    assert {
+      condition = azurerm_subnet_network_security_group_association.subnet_security_group["subnet1"].network_security_group_id == run.setup_security_group.azurerm_network_security_group.id
+      error_message = "Subnet not associated with a security group as expected."
     }
 }
