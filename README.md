@@ -34,3 +34,4 @@ Chief resources used for this development are:
     * Current workflow won't scale as the number of modules included grow.
 * Enhance module ```vnet``` documentation so I can use it as an example of module-writing best practices.
 * Enhance workflow to automatically update documentation.
+* Explore testing for outer configurations that can't be destroyed after the test.
