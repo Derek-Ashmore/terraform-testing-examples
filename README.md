@@ -20,7 +20,7 @@ Notes on executing tests are [here](./modules/Test-Execution.md)
 
 | Name | Test Code | Description |
 |--- |--- |--- |
-| [```vnet```](modules/vnet/README.md) | [```test_suite.tftest.hcl```](modules/vnet/test_suite.tftest.hcl) | Defines a VNet, subnets, along with any needed delegations and service endpoints. |
+| [```vnet```](modules/vnet/README.md) | [```test_suite.tftest.hcl```](modules/vnet/test_suite.tftest.hcl) | Defines a VNet, subnets, along with any needed delegations and service endpoints. Additionally, options for subnet route table and networksecurity group assignments are provided.|
 
 ## Resources
 
@@ -32,4 +32,5 @@ Chief resources used for this development are:
 
 * Enhance workflow to asyncronously run tests
     * Current workflow won't scale as the number of modules included grow.
-* Enhance module vnet documentation so I can use it as an example of module-writing best practices.
+* Enhance module ```vnet``` documentation so I can use it as an example of module-writing best practices.
+* Enhance workflow to automatically update documentation.
