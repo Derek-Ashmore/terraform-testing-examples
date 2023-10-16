@@ -32,3 +32,4 @@ Chief resources used for this development are:
 
 * Enhance workflow to asyncronously run tests
     * Current workflow won't scale as the number of modules included grow.
+* Enhance module vnet documentation so I can use it as an example of module-writing best practices.
