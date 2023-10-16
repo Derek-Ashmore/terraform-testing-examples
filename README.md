@@ -27,3 +27,8 @@ Notes on executing tests are [here](./modules/Test-Execution.md)
 Chief resources used for this development are:
 * [Terraform test code documentation](https://developer.hashicorp.com/terraform/language/tests)
 * [Terraform test command options](https://developer.hashicorp.com/terraform/cli/commands/test)
+
+## Product Roadmap
+
+* Enhance workflow to asyncronously run tests
+    * Current workflow won't scale as the number of modules included grow.
