@@ -36,9 +36,19 @@ locals {
     subnet_route_table_map = {for k,v in var.subnet_config : k => v.route_table_id if v.route_table_id != null }
 }
 resource "azurerm_subnet_route_table_association" "subnet_route_table" {
-    for_each = local.subnet_route_table_map
-    subnet_id      = azurerm_subnet.subnet[each.key].id
-    route_table_id = each.value
+    for_each        = local.subnet_route_table_map
+
+    subnet_id       = azurerm_subnet.subnet[each.key].id
+    route_table_id  = each.value
 }
 
-// Add Network Security Group Association
+locals {
+    subnet_security_group_map = {for k,v in var.subnet_config : k => v.security_group_id if v.security_group_id != null }
+}
+
+resource "azurerm_subnet_network_security_group_association" "subnet_security_group" {
+    for_each                    = local.subnet_security_group_map
+
+    subnet_id                   = azurerm_subnet.subnet[each.key].id
+    network_security_group_id   = each.value
+}
