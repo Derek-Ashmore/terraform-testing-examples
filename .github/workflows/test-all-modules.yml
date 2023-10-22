@@ -7,6 +7,20 @@ on:
     - main
 
 jobs:
+  update-documentation:
+    name: "Update Terraform Documentation"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+      - name: Update Documentation
+        uses: terraform-docs/gh-actions@v1.0.0
+        with:
+          working-dir: modules/vnet
+          output-file: README.md
+          output-method: inject
+          git-push: "true"
+
   test-modules:
     name: "Module Test Suite"
     runs-on: ubuntu-latest
