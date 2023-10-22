@@ -19,7 +19,7 @@ jobs:
           working-dir: modules/vnet
           output-file: README.md
           output-method: inject
-          git-push: "true"      This doesn't work -- no way to pass token.
+          git-push: "true"      
       # - name: Commit and Push
       #   # uses: stefanzweifel/git-auto-commit-action@v5
       #   env:
