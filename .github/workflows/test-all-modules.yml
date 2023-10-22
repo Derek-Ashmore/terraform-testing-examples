@@ -16,7 +16,6 @@ jobs:
       - name: Update Documentation
         uses: terraform-docs/gh-actions@v1.0.0
         with:
-          # working-dir: modules/vnet
           output-file: README.md
           output-method: inject
           atlantis-file: terraform_folders.yml
