@@ -1,5 +1,5 @@
 variable vnet_name {
-    description = "Name of the virtual network"
+    description = "Vvirtual netw"
     type        = string
 }
 
@@ -9,12 +9,12 @@ variable vnet_cidr_list {
 }
 
 variable location {
-    description = "Azure region to deploy the virtual network"
+    description = "Azure region"
     type        = string
 }
 
 variable resource_group_name {
-    description = "Name of the resource group to deploy the virtual network"
+    description = "Rresource group nam"
     type        = string
 }
 
@@ -35,7 +35,7 @@ variable subnet_config {
 }
 
 variable tags {
-    description = "Tags to apply to the virtual network"
+    description = "resource tags"
     type        = map(string)
     default     = {}
 }

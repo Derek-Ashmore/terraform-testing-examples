@@ -9,7 +9,7 @@ variable location {
 }
 
 variable resource_group_name {
-    description = "Name of the resource group"
+    description = "Resoruce group name"
     type        = string
 }
 
