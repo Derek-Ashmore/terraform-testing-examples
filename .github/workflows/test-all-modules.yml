@@ -19,17 +19,20 @@ jobs:
           working-dir: modules/vnet
           output-file: README.md
           output-method: inject
-          git-push: "true"
+          # git-push: "true"      This doesn't work -- no way to pass token.
+      - name: Commit and Push
+        uses: stefanzweifel/git-auto-commit-action@v5
 
   test-modules:
     name: "Module Test Suite"
+    needs: update-documentation
     runs-on: ubuntu-latest
     env:
       TERRAFORM_VERSION: 1.6.1
       MODULE_DIR: modules
     steps:
-    - name: Check out code
-      uses: actions/checkout@v2
+    # - name: Check out code
+    #   uses: actions/checkout@v2
     - name: Install Terraform
       uses: hashicorp/setup-terraform@v2
       with:
