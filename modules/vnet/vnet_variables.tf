@@ -1,5 +1,5 @@
 variable vnet_name {
-    description = "Vvirtual netw"
+    description = "Virtual network name"
     type        = string
 }
 
@@ -14,7 +14,7 @@ variable location {
 }
 
 variable resource_group_name {
-    description = "Rresource group nam"
+    description = "Rresource group name"
     type        = string
 }
 
