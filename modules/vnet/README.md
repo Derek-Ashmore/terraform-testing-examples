@@ -21,10 +21,10 @@ module "vnet" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_vnet_name"></a> [vnet\_name](#input\_vnet\_name) | Vvirtual netw | `string` | n/a | yes |
+| <a name="input_vnet_name"></a> [vnet\_name](#input\_vnet\_name) | Virtual network name | `string` | n/a | yes |
 | <a name="input_vnet_cidr_list"></a> [vnet\_cidr\_list](#input\_vnet\_cidr\_list) | List of CIDR blocks to use for the virtual network | `list(string)` | n/a | yes |
 | <a name="input_location"></a> [location](#input\_location) | Azure region | `string` | n/a | yes |
-| <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | Rresource group nam | `string` | n/a | yes |
+| <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | Rresource group name | `string` | n/a | yes |
 | <a name="input_subnet_config"></a> [subnet\_config](#input\_subnet\_config) | Subnet specification for the virtual network | <pre>map(object({<br>        address_prefixes                                = list(string)<br>        private_endpoint_network_policies_enabled       = optional(bool, true)<br>        private_link_service_network_policies_enabled   = optional(bool, true)<br>        route_table_id                                  = optional(string, null)<br>        security_group_id                               = optional(string, null)<br>        delegations                                     = optional(map(object({<br>            name = string<br>            actions = optional(list(string))<br>        })), {})<br>        service_endpoints                               = optional(list(string), null)<br>    }))</pre> | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | resource tags | `map(string)` | `{}` | no |
 ## Outputs
