@@ -24,7 +24,8 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
         with:
-          ref: ${{ steps.branch-pr.outputs.active_ref }}
+          ref: ${{ github.ref_name }} 
+          #ref: ${{ steps.branch-pr.outputs.active_ref }}
       - name: Update Documentation
         uses: terraform-docs/gh-actions@v1.0.0
         with:
