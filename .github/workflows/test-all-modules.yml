@@ -11,8 +11,20 @@ jobs:
     name: "Update Terraform Documentation"
     runs-on: ubuntu-latest
     steps:
+      - name: Branch or PR
+        id: branch-pr
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = 'pull_request' ]; then
+            echo "active_ref=${{ github.event.pull_request.head.sha }}" >> $GITHUB_OUTPUT; 
+          else
+            echo "active_ref=${{ github.ref_name }}" >> $GITHUB_OUTPUT; 
+          fi
+          echo $GITHUB_OUTPUT
       - name: Check out code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ steps.branch-pr.outputs.active_ref }}
       - name: Update Documentation
         uses: terraform-docs/gh-actions@v1.0.0
         with:
@@ -30,7 +42,7 @@ jobs:
       MODULE_DIR: modules
     steps:
     - name: Check out code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     - name: Install Terraform
       uses: hashicorp/setup-terraform@v2
       with:
