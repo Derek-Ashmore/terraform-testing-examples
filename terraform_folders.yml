@@ -1,0 +1,4 @@
+version: 3
+projects:
+- dir: modules/vnet
+- dir: modules/security_group
