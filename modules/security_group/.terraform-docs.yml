@@ -1,6 +1,6 @@
 formatter: markdown table
 output:
-  file: README.md
+  file: README2.md
   mode: replace
 sort:
   enabled: false
